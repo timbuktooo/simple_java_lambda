@@ -51,6 +51,11 @@ pipeline {
                 sh 'aws --v' 
                 sh 'ls -al'
                 sh 'ls target/ -Ral'
+                script {
+                    timeout(time: 10, unit: 'MINUTES') {
+                    input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
+                    } 
+                }
                 sh 'sh deploy.sh'
             }
         }
