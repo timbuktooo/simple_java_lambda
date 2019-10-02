@@ -1,20 +1,21 @@
 #!/bin/sh 
 
 function deployFail {
-    echo "Deploy to AWS Lambda failed"
+  echo "Deploy to AWS Lambda failed"
+  echo "$1"
 	exit 1
 }
 
-trap deployFail ERR
+trap 'deployFail $LINENO' ERR
 
 REGION="us-east-1"
 CURDIR=`pwd`
 ALIAS="DEV"
 HANDLER="com.Hello::handleRequest"
 
-BUILD_VERSION=$env.BUILD_NUMBER
-LAMBDA_NAME=$env.JOB_NAME
-NAME="Simple Java"
+BUILD_VERSION=$BUILD_NUMBER
+LAMBDA_NAME=$JOB_NAME
+NAME="Simple-Java"
 
 FUNCTION_ARN=$(aws lambda get-function --region ${REGION} --function-name ${NAME} --output json| jq -r '.Configuration.FunctionArn')
 if [[ ! -z $FUNCTION_ARN ]]; then
