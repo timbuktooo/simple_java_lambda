@@ -6,7 +6,7 @@
 
     <groupId>sheff-test</groupId>
     <artifactId>simple-java-lambda</artifactId>
-    <version></version>
+    <version>${env.BUILD_NUMBER}</version>
 
     <dependencies>
         <dependency>
