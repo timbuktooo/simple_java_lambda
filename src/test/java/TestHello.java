@@ -18,7 +18,14 @@ public class TestHello {
         Assert.assertTrue("Assert False",true);
     }
 
+    @Test
+    public void test4() {
+        Assert.assertTrue("Assert False",true);
+    }
 
-
+    @Test
+    public void test5() {
+        Assert.assertTrue("Assert False",false);
+    }
 
 }
