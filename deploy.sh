@@ -23,13 +23,6 @@ if [[ ! -z $FUNCTION_ARN ]]; then
     aws lambda update-function-code --region ${REGION} --function-name ${NAME} --zip-file fileb://target/${LAMBDA_NAME}-${BUILD_VERSION}.jar
     OUTPUT=$(aws lambda publish-version --region ${REGION} --function-name ${NAME} --description "${BUILD_VERSION} Build}")
   
-    if [[ -e ${NAME}-${ALIAS}.txt ]]; then
-        echo "${OUTPUT}" > $file
-    else
-        file="${NAME}-${ALIAS}.txt"
-        echo "${OUTPUT}" > $file
-        ls -al
-    fi
   existing_aliases=$(aws lambda list-aliases --function-name ${NAME} --region ${REGION} --output json| jq -r '.Aliases[] | {Name: .Name}')
   if [[ $existing_aliases == *"$ALIAS"* ]]; then
     aws lambda update-alias --region ${REGION} --function-name ${NAME} --description "${BUILD_VERSION} Build" --function-version '$LATEST'  --name $ALIAS
@@ -50,6 +43,3 @@ else
 
 fi
 echo "function arn=${FUNCTION_ARN}"
-
-
-
