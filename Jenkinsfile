@@ -43,7 +43,7 @@ pipeline {
             }
         }
         stage('Deploy') {
-            agent node
+            agent any
             steps {
                 sh 'aws --v' 
             }
