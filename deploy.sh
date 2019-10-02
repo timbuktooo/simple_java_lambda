@@ -13,6 +13,8 @@ CURDIR=`pwd`
 ALIAS="DEV"
 HANDLER="com.Hello::handleRequest"
 
+LATEST="2"
+
 BUILD_VERSION=$BUILD_NUMBER
 LAMBDA_NAME=$JOB_NAME
 NAME="Simple-Java"
@@ -30,12 +32,12 @@ if [[ ! -z $FUNCTION_ARN ]]; then
         echo "${OUTPUT}" > $file
         ls -al
     fi
-  existing_aliases=$(aws lambda list-aliases --function-name ${NAME} --region ${REGION} --output json| jq -r '.Aliases[] | {Name: .Name}')
-  if [[ $existing_aliases == *"$ALIAS"* ]]; then
-    aws lambda update-alias --region ${REGION} --function-name ${NAME} --description "${BUILD_VERSION} Build" --function-version '$LATEST'  --name $ALIAS
-  else
-    aws lambda create-alias --region ${REGION} --function-name ${NAME} --description "${BUILD_VERSION} Build" --function-version '$LATEST' --name $ALIAS
-  fi
+  # existing_aliases=$(aws lambda list-aliases --function-name ${NAME} --region ${REGION} --output json| jq -r '.Aliases[] | {Name: .Name}')
+  # if [[ $existing_aliases == *"$ALIAS"* ]]; then
+  #   aws lambda update-alias --region ${REGION} --function-name ${NAME} --description "${BUILD_VERSION} Build" --function-version '$LATEST'  --name $ALIAS
+  # else
+  #   aws lambda create-alias --region ${REGION} --function-name ${NAME} --description "${BUILD_VERSION} Build" --function-version '$LATEST' --name $ALIAS
+  # fi
 
 else
     echo "Function Created"
@@ -46,7 +48,7 @@ else
     sleep 20s
     
     FUNCTION_ARN=$(aws lambda create-function --region ${REGION} --function-name ${NAME} --role ${ROLE_ARN} --handler ${HANDLER} --runtime java8 --zip-file fileb://target/${LAMBDA_NAME}-${BUILD_VERSION}.jar --output json| jq -r '.FunctionArn')
-    aws lambda create-alias --region ${REGION} --function-name ${NAME} --description "${BUILD_VERSION} Build" --function-version '$LATEST' --name $ALIAS
+    # aws lambda create-alias --region ${REGION} --function-name ${NAME} --description "${BUILD_VERSION} Build" --function-version '$LATEST' --name $ALIAS
 
 fi
 echo "function arn=${FUNCTION_ARN}"
