@@ -49,7 +49,8 @@ pipeline {
             agent any
             steps {
                 sh 'aws --v' 
-                sh 'ls -Ral'
+                sh 'ls -al'
+                sh 'ls target/ -Ral'
             }
         }
     }
