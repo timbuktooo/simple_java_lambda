@@ -7,6 +7,7 @@ function deployFail {
 
 trap deployFail ERR
 
+REGION="us-east-1"
 CURDIR=`pwd`
 ALIAS="DEV"
 HANDLER="com.Hello::handleRequest"
