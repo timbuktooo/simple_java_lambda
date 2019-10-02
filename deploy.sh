@@ -16,7 +16,7 @@ HANDLER="com.Hello::handleRequest"
 LATEST="2"
 
 BUILD_VERSION=$BUILD_NUMBER
-LAMBDA_NAME=$JOB_NAME
+LAMBDA_NAME="simple-java-lambda"
 NAME="Simple-Java"
 
 FUNCTION_ARN=$(aws lambda get-function --region ${REGION} --function-name ${NAME} --output json| jq -r '.Configuration.FunctionArn')
