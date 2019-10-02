@@ -9,7 +9,8 @@ trap deployFail ERR
 
 CURDIR=`pwd`
 ALIAS="DEV"
-HANDLER="com.lambda.LambdaFunctionHandler"
+HANDLER="sheff.test.lambda.LambdaFunctionHandler"
+
 BUILD_VERSION=$BUILD_NUMBER
 LAMBDA_NAME=$JOB_NAME
 
