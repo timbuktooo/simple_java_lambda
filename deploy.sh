@@ -11,7 +11,7 @@ trap 'deployFail $LINENO' ERR
 REGION="us-east-1"
 CURDIR=`pwd`
 ALIAS="DEV"
-HANDLER="com.Hello::handleRequest"
+HANDLER="Hello::handleRequest"
 
 BUILD_VERSION=$BUILD_NUMBER
 LAMBDA_NAME="simple-java-lambda"
