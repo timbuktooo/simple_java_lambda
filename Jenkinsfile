@@ -51,6 +51,7 @@ pipeline {
                 sh 'aws --v' 
                 sh 'ls -al'
                 sh 'ls target/ -Ral'
+                sh 'sh deploy.sh'
             }
         }
     }
