@@ -12,8 +12,8 @@ CURDIR=`pwd`
 ALIAS="DEV"
 HANDLER="com.Hello::handleRequest"
 
-BUILD_VERSION=$BUILD_NUMBER
-LAMBDA_NAME=$JOB_NAME
+BUILD_VERSION=$env.BUILD_NUMBER
+LAMBDA_NAME=$env.JOB_NAME
 
 FUNCTION_ARN=$(aws lambda get-function --region ${REGION} --function-name ${NAME} --output json| jq -r '.Configuration.FunctionArn')
 if [[ ! -z $FUNCTION_ARN ]]; then
