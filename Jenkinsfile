@@ -6,6 +6,7 @@ pipeline {
                 docker {
                     image 'maven:alpine'
                     args  '--env MAVEN_OPTS=-Xmx210m --env JAVA_OPTIONS=-Xmx300m -v /root/.m2:/root/.m2'
+                    reuseNode true
                 }
             }
             steps {
@@ -17,6 +18,7 @@ pipeline {
                 docker {
                     image 'maven:alpine'
                     args  '--env MAVEN_OPTS=-Xmx210m --env JAVA_OPTIONS=-Xmx300m -v /root/.m2:/root/.m2'
+                    reuseNode true
                 }
             }
             steps {
@@ -33,8 +35,9 @@ pipeline {
                 docker {
                     image 'maven:alpine'
                     args  '--env MAVEN_OPTS=-Xmx210m --env JAVA_OPTIONS=-Xmx300m -v /root/.m2:/root/.m2'
-                    }
+                    reuseNode true
                 }
+            }
             steps {
                 sh 'mvn package' 
             }
