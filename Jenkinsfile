@@ -26,5 +26,11 @@ pipeline {
                 sh 'mvn package' 
             }
         }
+        stage('Deploy') {
+            agent none
+            steps {
+                sh 'ls -al' 
+            }
+        }
     }
 }
