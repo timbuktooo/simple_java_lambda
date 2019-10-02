@@ -29,7 +29,7 @@ pipeline {
         stage('Deploy') {
             agent none
             steps {
-                sh 'ls -al' 
+                sh 'aws --v' 
             }
         }
     }
