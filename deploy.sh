@@ -17,7 +17,7 @@ LAMBDA_NAME=$JOB_NAME
 FUNCTION_ARN=$(aws lambda get-function --region ${REGION} --function-name ${NAME} --output json| jq -r '.Configuration.FunctionArn')
 if [[ ! -z $FUNCTION_ARN ]]; then
     echo "Function Exists"
-    aws lambda update-function-code --region ${REGION} --function-name ${NAME} --zip-file fileb://target/${LAMBDA_NAME}.jar
+    aws lambda update-function-code --region ${REGION} --function-name ${NAME} --zip-file fileb://target/${LAMBDA_NAME}-${BUILD_VERSION}.jar
     OUTPUT=$(aws lambda publish-version --region ${REGION} --function-name ${NAME} --description "${BUILD_VERSION} Build}")
   
     if [[ -e ${NAME}-${ALIAS}.txt ]]; then
@@ -42,7 +42,7 @@ else
     aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole --role-name ${NAME}Role
     sleep 20s
     
-    FUNCTION_ARN=$(aws lambda create-function --region ${REGION} --function-name ${NAME} --role ${ROLE_ARN} --handler ${HANDLER} --runtime java8 --zip-file fileb://target/${LAMBDA_NAME}.jar --output json| jq -r '.FunctionArn')
+    FUNCTION_ARN=$(aws lambda create-function --region ${REGION} --function-name ${NAME} --role ${ROLE_ARN} --handler ${HANDLER} --runtime java8 --zip-file fileb://target/${LAMBDA_NAME}-${BUILD_VERSION}.jar --output json| jq -r '.FunctionArn')
     aws lambda create-alias --region ${REGION} --function-name ${NAME} --description "${BUILD_VERSION} Build" --function-version '$LATEST' --name $ALIAS
 
 fi
